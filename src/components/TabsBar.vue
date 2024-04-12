@@ -3,16 +3,17 @@
     <div class="tabs-container">
       <img class="icon logo-icon" :src="logo" alt="Logo">
       <div v-for="tabObj in tabsSource" :key="tabObj.id">
-        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === choosenTab }" :id="tabObj.id"
-          @click="openTab(tabObj.id)">{{ tabObj.name }}</button>
+        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === chosenTab }" :id="tabObj.id"
+          v-on:click="changeTab(tabObj.id)">{{ tabObj.name }}</button>
       </div>
     </div>
     <div class="client-container">
       <img class="icon client-icon" :src="user_img" alt="Client">
       <div class="client-combobox">
-        <select class="combobox">
+        <select v-on:change="changeClient($event.target.selectedOptions[0].getAttribute('key'))" class="combobox">
           <option key="0" value="0">admin</option>
-          <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' + client.surname
+          <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' +
+            client.surname
             }}</option>
         </select>
       </div>
@@ -32,16 +33,23 @@ export default ({
   },
   data() {
     return {
-      choosenTab: '',
+      chosenTab: '',
+      chosenClient: '',
       logo: logo,
-      user_img: user_img
+      user_img: user_img,
     }
   },
   methods: {
-    openTab(tabId) {
-      this.choosenTab = tabId
-      this.$emit('change:tab', this.choosenTab)
-    }
+    changeTab(tabId) {
+      this.chosenTab = tabId
+      console.log('new' + this.chosenTab + tabId)
+      this.$emit('change:tab', this.chosenTab)
+    },
+    changeClient(clientId) {
+      this.chosenClient = clientId
+      console.log('new' + this.chosenClient+ clientId)
+      this.$emit('change:client', this.chosenClient)
+    },
   }
 }) 
 </script>
@@ -101,10 +109,12 @@ button.tablinks.chosen-tab {
   padding: 12px;
   border-radius: 10px;
 }
+
 .icon.client-icon {
   height: 40px;
   padding-top: 0px;
 }
+
 .combobox {
   margin-left: 10px;
   float: right;

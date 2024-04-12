@@ -1,47 +1,20 @@
 <template>
-  <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab"/>
-  <h1>Books</h1>
-  <BookForm @add:book="addBook"/>
-  <BooksList :booksSource="books" />
+  <TabsBar :tabsSource="tabs" :clientsSource="clients" @changeTab="changeTab" @changeClient="changeClient" />
+  <BooksAdminPage />
 </template>
 
 <script>
-import TabsBar from './components/TabsBar.vue'
-import BooksList from './components/BooksList.vue'
-import BookForm from './components/BookForm.vue';
+import BooksAdminPage from './pages/BooksAdminPage.vue'
+import TabsBar from './components/TabsBar.vue';
 
 export default {
   name: 'app',
   components: {
-    BooksList,
+    BooksAdminPage,
     TabsBar,
-    BookForm,
   },
   data() {
     return {
-      books: [
-        {
-          id: 1,
-          title: 'Book1',
-          author: { penName: 'Author1' },
-          pages: 100,
-          available: true
-        },
-        {
-          id: 2,
-          title: 'Book2',
-          author: { penName: 'Author2' },
-          pages: 200,
-          available: false
-        },
-        {
-          id: 3,
-          title: 'Book3',
-          author: { penName: 'Author3' },
-          pages: 300,
-          available: true
-        },
-      ],
       tabs: [
         {
           id: 1,
@@ -49,7 +22,10 @@ export default {
         }, {
           id: 2,
           name: "My books"
-        }
+        },{
+          id: 3,
+          name: "About"
+        },
       ],
       clients: [
         {
@@ -62,20 +38,11 @@ export default {
     }
   },
   methods: {
-    addBook(book) {
-      this.books = [...this.books, book]
-    },
-    async getBooks() {
-      try {
-        const response = await fetch('http://localhost:8080/books')
-        const data = await response.json()
-        this.books = data
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    changeTab(chosenTabId){
+    changeTab(chosenTabId) {
       console.log(chosenTabId)
+    },
+    changeClient(chosenClientId) {
+      console.log(chosenClientId)
     },
     async getClients() {
       try {
@@ -88,7 +55,6 @@ export default {
     }
   },
   mounted() {
-    this.getBooks()
     this.getClients()
   },
 }

@@ -1,44 +1,56 @@
 <template>
-  <TabsBar></TabsBar>  
+  <TabsBar :tabsSource="tabs" @change:tab="changeTab"/>
   <h1>Books</h1>
   <BooksList :booksSource="books" />
 </template>
 
 <script>
+import TabsBar from './components/TabsBar.vue';
 import BooksList from './components/BooksList.vue'
-import TabsBar from './components/TabsBar.vue'
 
 export default {
   name: 'app',
   components: {
     BooksList,
-    TabsBar
+    TabsBar,
   },
   data() {
     return {
       books: [
         {
           id: 1,
-          title: 'Adam Słodowy',
-          author: {penName: 'adam.slodowy@zrobtosam.pl'},
-          pages: 267,
+          title: 'Book1',
+          author: { penName: 'Author1' },
+          pages: 100,
           available: true
         },
         {
           id: 2,
-          title: 'Michał Studencki',
-          author: {penName: 'adam.slodowy@zrobtosam.pl'},
-          pages: 267,
+          title: 'Book2',
+          author: { penName: 'Author2' },
+          pages: 200,
           available: false
         },
         {
           id: 3,
-          title: 'Kamila Napokaz',
-          author: {penName: 'adam.slodowy@zrobtosam.pl'},
-          pages: 267,
+          title: 'Book3',
+          author: { penName: 'Author3' },
+          pages: 300,
           available: true
         },
-      ]
+      ],
+      tabs: [
+        {
+          id: 1,
+          name: "Library"
+        }, {
+          id: 2,
+          name: "Authors"
+        }, {
+          id: 3,
+          name: "Users"
+        }
+      ],
     }
   },
   methods: {
@@ -54,6 +66,9 @@ export default {
         console.error(error)
       }
     },
+    changeTab(chosenTabId){
+      console.log(chosenTabId)
+    }
   },
   mounted() {
     this.getBooks()

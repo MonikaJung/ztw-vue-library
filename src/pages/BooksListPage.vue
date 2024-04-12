@@ -1,6 +1,6 @@
 <template>
     <h1>Books</h1>
-    <BooksList :booksSource="books" />
+    <BooksList :booksSource="books"  buttonText="Borrow book!" buttonHeader="Borrow" />
 </template>
 
 <script>

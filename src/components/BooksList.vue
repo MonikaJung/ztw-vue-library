@@ -7,7 +7,7 @@
                     <th>Title</th>
                     <th>Author</th>
                     <th>Pages</th>
-                    <th class="th-adjust">Borrow</th>
+                    <th class="th-adjust">{{buttonHeader}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +17,7 @@
                     <td>{{ book.author.penName }}</td>
                     <td>{{ book.pages }}</td>
                     <td class="td-adjust">
-                        <button v-if="book.available" class="primary-button">Borrow now!</button>
+                        <button v-if="book.available" class="primary-button">{{buttonText}}</button>
                         <button v-else class="primary-button" disabled>Unavailable</button>
                     </td>
                 </tr>
@@ -31,6 +31,8 @@ export default ({
     name: 'books-list',
     props: {
         booksSource: Array,
+        buttonText: Text,
+        buttonHeader: Text
     },
 })
 </script>

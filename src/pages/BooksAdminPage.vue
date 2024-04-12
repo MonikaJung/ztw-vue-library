@@ -1,7 +1,8 @@
 <template>
     <h1>Add book</h1>
     <BookForm @add:book="addBook" />
-    <BooksList :booksSource="books" />
+    <h1>Edit Books</h1>
+    <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" />
 </template>
 
 <script>

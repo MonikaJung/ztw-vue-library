@@ -1,16 +1,20 @@
 <template>
   <div class="tabs-bar">
-    <img class="icon logo-icon" :src="logo" alt="Logo">
-    <div v-for="tabObj in tabsSource" :key="tabObj.id">
-      <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === choosenTab }" :id="tabObj.id"
-        @click="openTab(tabObj.id)">{{ tabObj.name }}</button>
+    <div class="tabs-container">
+      <img class="icon logo-icon" :src="logo" alt="Logo">
+      <div v-for="tabObj in tabsSource" :key="tabObj.id">
+        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === choosenTab }" :id="tabObj.id"
+          @click="openTab(tabObj.id)">{{ tabObj.name }}</button>
+      </div>
     </div>
-    <img class="icon user-icon" :src="user_img" alt="User">
-    <div class="client-combobox">
-      <select class="combobox">
-        <option v-for="client in tabsSource" :key="client.id" :value="client.id">{{ client.name + ' ' + client.surname
-          }}</option>
-      </select>
+    <div class="client-container">
+      <img class="icon client-icon" :src="user_img" alt="Client">
+      <div class="client-combobox">
+        <select class="combobox">
+          <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' + client.surname
+            }}</option>
+        </select>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +27,7 @@ export default ({
   name: 'tabs-bar',
   props: {
     tabsSource: Array,
+    clientsSource: Array,
   },
   data() {
     return {
@@ -40,14 +45,20 @@ export default ({
 }) 
 </script>
 
-<style>
+<style scoped>
 .tabs-bar {
+  align-items: center;
+  display: flex;
+}
+
+.tabs-container {
   overflow: hidden;
   border: 1px solid #004085;
   background-color: #212529;
+  flex: 1;
   display: flex;
-  align-items: center;
   padding: 8px;
+  width: 70%;
 }
 
 .icon.logo-icon {
@@ -55,12 +66,7 @@ export default ({
   height: 50px;
 }
 
-.icon.user-icon {
-  height: 40px;
-  padding-top: 0px;
-}
-
-.tabs-bar button {
+.tabs-container button {
   background-color: inherit;
   float: left;
   border: none;
@@ -73,11 +79,11 @@ export default ({
   border-radius: 20px;
 }
 
-.tabs-bar button:hover {
+.tabs-container button:hover {
   background-color: #0056b3;
 }
 
-.tabs-bar button.active {
+.tabs-container button.active {
   background-color: #007bff;
 }
 
@@ -88,9 +94,16 @@ button.tablinks.chosen-tab {
 }
 
 .client-container {
-  margin-left: 20px;
+  margin: 0 20px;
+  display: flex;
+  background: #495057;
+  padding: 12px;
+  border-radius: 10px;
 }
-
+.icon.client-icon {
+  height: 40px;
+  padding-top: 0px;
+}
 .combobox {
   margin-left: 10px;
   float: right;
@@ -104,11 +117,11 @@ button.tablinks.chosen-tab {
 }
 
 .combobox:focus {
-  border-color: #0056b3; /* Darker blue border color on focus */
+  border-color: #0056b3;
 }
 
 .combobox option:checked {
-  background-color: #007bff; /* Blue background color for selected option */
+  background-color: #007bff;
 }
 
 .combobox option {

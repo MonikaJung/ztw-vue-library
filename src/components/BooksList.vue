@@ -7,7 +7,7 @@
                     <th>Title</th>
                     <th>Author</th>
                     <th>Pages</th>
-                    <th>Borrow</th>
+                    <th class="th-adjust">Borrow</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +16,7 @@
                     <td>"{{ book.title }}"</td>
                     <td>{{ book.author.penName }}</td>
                     <td>{{ book.pages }}</td>
-                    <td>
+                    <td class="td-adjust">
                         <button v-if="book.available" class="primary-button">Borrow now!</button>
                         <button v-else class="primary-button" disabled>Unavailable</button>
                     </td>
@@ -37,9 +37,9 @@ export default ({
 
 
 <style scoped>
-
 table {
-  width: 100%;
+  width: 96%;
+  margin-left: 2%;
   border-collapse: separate;
   border-spacing: 0;
   background-color: #212529;
@@ -73,6 +73,13 @@ tr:hover {
   background-color: #003366;
 }
 
+.td-adjust {
+  width: 10%;
+}
+
+.th-adjust {
+ text-align: center;
+}
 
 .primary-button {
   background-color: #007bff;

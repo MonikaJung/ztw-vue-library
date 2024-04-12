@@ -1,5 +1,5 @@
 <template>
-  <TabsBar :tabsSource="tabs" @change:tab="changeTab"/>
+  <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab"/>
   <h1>Books</h1>
   <BooksList :booksSource="books" />
 </template>
@@ -51,6 +51,14 @@ export default {
           name: "Users"
         }
       ],
+      clients: [
+        {
+          id: 1,
+          name: "Name",
+          surname: "Surname",
+          borrowedBooks: []
+        }
+      ],
     }
   },
   methods: {
@@ -68,10 +76,20 @@ export default {
     },
     changeTab(chosenTabId){
       console.log(chosenTabId)
+    },
+    async getClients() {
+      try {
+        const response = await fetch('http://localhost:8080/clients')
+        const data = await response.json()
+        this.clients = data
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
   mounted() {
     this.getBooks()
+    this.getClients()
   },
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="book-form">
+    <div class="book-form">
         <form @submit.prevent="handleSubmit">
             <label>Book title</label>
             <input v-model="book.title" type="text" :class="{ 'has-error': submitting && invalidTitle }" />
@@ -8,7 +8,7 @@
             <label>Author surname</label>
             <input v-model="book.author.surname" type="text" :class="{ 'has-error': submitting && invalidSurname }" />
             <label>Author penname (optional)</label>
-            <input v-model="book.author.penname" type="text"
+            <input v-model="book.author.penName" type="text"
                 :class="{ 'has-error': submitting && invalidName && invalidSurname }" />
             <label>Pages count</label>
             <input v-model="book.pages" type="number" min="1" :class="{ 'has-error': submitting && invalidPages }" />
@@ -36,7 +36,7 @@ export default {
                 author: {
                     name: '',
                     surname: '',
-                    penname: '',
+                    penName: '',
                 },
                 pages: '',
             },
@@ -51,17 +51,18 @@ export default {
                 this.error = true
                 return
             }
-            if (this.book.author.penname == '') {
-                this.book.author.penname = this.book.author.name + ' ' + this.book.author.surname
+            if (this.book.author.penName == '') {
+                this.book.author.penName = this.book.author.name + ' ' + this.book.author.surname
             }
             this.$emit('add:book', this.book)
-
+            console.log(this.book)
             this.book = {
                 title: '',
                 author: {
+                    id: '',
                     name: '',
                     surname: '',
-                    penname: '',
+                    penName: '',
                 },
                 pages: '',
             }
@@ -92,24 +93,23 @@ export default {
 </script>
 
 <style scoped>
-#book-form {
+.book-form {
     width: 80%;
     margin: 0 auto;
 }
 
-#book-form form {
+.book-form form {
     background-color: #212529;
     padding: 20px;
     border-radius: 8px;
 }
 
-#book-form label {
+.book-form label {
     color: #ffffff;
 
 }
 
-#book-form input[type="text"],
-#book-form input[type="number"] {
+.book-form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -119,14 +119,13 @@ export default {
     color: #ffffff;
 }
 
-#book-form input[type="text"]:focus,
-#book-form input[type="number"]:focus {
+.book-form input:focus {
     outline: none;
-    border-color: #007bff;
+    border: 2px solid #007bff;
 }
 
-#book-form input.has-error {
-    border-color: #dc3545;
+.book-form input.has-error {
+    border: 2px solid  #dc3545;
 }
 
 .error-message,
@@ -139,7 +138,7 @@ export default {
     color: #28a745;
 }
 
-#book-form button {
+.book-form button {
     width: 70%;
     margin-bottom: 10px;
     background-color: #007bff;
@@ -153,14 +152,14 @@ export default {
     border-radius: 5px;
     outline: none;
 }
-#book-form button:hover {
+.book-form button:hover {
     background-color: #0056b3;
 }
-#book-form button:active {
+.book-form button:active {
     background-color: #004085;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
-#book-form button:disabled {
+.book-form button:disabled {
     background-color: #5a6268;
     color: #ced4da;
     cursor: not-allowed;

@@ -10,7 +10,7 @@
     <div class="client-container">
       <img class="icon client-icon" :src="user_img" alt="Client">
       <div class="client-combobox">
-        <select v-on:change="changeClient($event.target.selectedOptions[0].getAttribute('key'))" class="combobox">
+        <select v-on:change="changeClient($event.target.value)" class="combobox">
           <option key="0" value="0">admin</option>
           <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' +
             client.surname
@@ -42,12 +42,10 @@ export default ({
   methods: {
     changeTab(tabId) {
       this.chosenTab = tabId
-      console.log('new' + this.chosenTab + tabId)
       this.$emit('change:tab', this.chosenTab)
     },
     changeClient(clientId) {
       this.chosenClient = clientId
-      console.log('new' + this.chosenClient+ clientId)
       this.$emit('change:client', this.chosenClient)
     },
   }

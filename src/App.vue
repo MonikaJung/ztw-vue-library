@@ -1,20 +1,26 @@
 <template>
-  <TabsBar :tabsSource="tabs" :clientsSource="clients" @changeTab="changeTab" @changeClient="changeClient" />
-  <BooksAdminPage />
+  <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
+  <BooksListPage v-if="!adminLogged"/>
+  <BooksAdminPage v-if="adminLogged"/>
 </template>
 
 <script>
+import BooksListPage from './pages/BooksListPage.vue'
 import BooksAdminPage from './pages/BooksAdminPage.vue'
 import TabsBar from './components/TabsBar.vue';
 
 export default {
   name: 'app',
   components: {
+    BooksListPage,
     BooksAdminPage,
     TabsBar,
   },
   data() {
     return {
+      chosenClientId: 0,
+      chosenTabId: 1,
+      adminLogged: true,
       tabs: [
         {
           id: 1,
@@ -39,10 +45,17 @@ export default {
   },
   methods: {
     changeTab(chosenTabId) {
-      console.log(chosenTabId)
+      this.chosenTabId = chosenTabId
     },
     changeClient(chosenClientId) {
-      console.log(chosenClientId)
+      this.chosenClientId = chosenClientId
+      console.log(chosenClientId + " cl " + this.chosenClientId)
+      if (chosenClientId == 0){
+        this.adminLogged = true
+      }
+      else{
+        this.adminLogged = false
+      }
     },
     async getClients() {
       try {
@@ -66,5 +79,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+.hidden {
+  visibility: hidden;
+}
+.visable {
+  visibility: visible;
 }
 </style>

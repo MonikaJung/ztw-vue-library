@@ -1,18 +1,21 @@
 <template>
   <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab"/>
   <h1>Books</h1>
+  <BookForm @add:book="addBook"/>
   <BooksList :booksSource="books" />
 </template>
 
 <script>
-import TabsBar from './components/TabsBar.vue';
+import TabsBar from './components/TabsBar.vue'
 import BooksList from './components/BooksList.vue'
+import BookForm from './components/BookForm.vue';
 
 export default {
   name: 'app',
   components: {
     BooksList,
     TabsBar,
+    BookForm,
   },
   data() {
     return {

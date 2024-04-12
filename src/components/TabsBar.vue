@@ -11,6 +11,7 @@
       <img class="icon client-icon" :src="user_img" alt="Client">
       <div class="client-combobox">
         <select class="combobox">
+          <option key="0" value="0">admin</option>
           <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' + client.surname
             }}</option>
         </select>

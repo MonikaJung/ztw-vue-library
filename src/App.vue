@@ -45,10 +45,7 @@ export default {
           name: "Library"
         }, {
           id: 2,
-          name: "Authors"
-        }, {
-          id: 3,
-          name: "Users"
+          name: "My books"
         }
       ],
       clients: [

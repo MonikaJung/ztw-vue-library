@@ -1,16 +1,16 @@
 <template>
   <div class="tabs-bar">
     <div class="tabs-container">
-      <img class="icon logo-icon" :src="logo" alt="Logo">
-      <div v-for="tabObj in tabsSource" :key="tabObj.id">
-        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === chosenTab }" :id="tabObj.id"
-          v-on:click="changeTab(tabObj.id)">{{ tabObj.name }}</button>
+      <img class="icon logo-icon" :src="logoSrc" alt="Logo">
+      <div v-for="tabObj in tabs" :key="tabObj.id">
+        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === chosenTab }" :id="'tab-' + tabObj.id"
+          @click="changeTab(tabObj.id)">{{ tabObj.name }}</button>
       </div>
     </div>
     <div class="client-container">
-      <img class="icon client-icon" :src="user_img" alt="Client">
+      <img class="icon client-icon" :src="userImgSrc" alt="Client">
       <div class="client-combobox">
-        <select v-on:change="changeClient($event.target.value)" class="combobox">
+        <select @change="changeClient($event.target.value)" class="combobox">
           <option key="0" value="0">admin</option>
           <option v-for="client in clientsSource" :key="client.id" :value="client.id">{{ client.name + ' ' +
             client.surname
@@ -21,37 +21,56 @@
   </div>
 </template>
 
+
 <script>
+import { ref } from 'vue';
 import logo from "../assets/books_icon.png";
 import user_img from "../assets/user_icon.png";
+import { useRouter } from 'vue-router';
 
-export default ({
+export default {
   name: 'tabs-bar',
   props: {
     tabsSource: Array,
     clientsSource: Array,
   },
-  data() {
-    return {
-      chosenTab: '',
-      chosenClient: '',
-      logo: logo,
-      user_img: user_img,
-    }
-  },
-  methods: {
-    changeTab(tabId) {
-      this.chosenTab = tabId
-      this.$emit('change:tab', this.chosenTab)
-    },
-    changeClient(clientId) {
-      this.chosenClient = clientId
-      this.$emit('change:client', this.chosenClient)
-    },
-  }
-}) 
-</script>
+  setup() {
+    const router = useRouter();
+    const chosenTab = ref(1);
+    const chosenClient = ref(0);
 
+    const logoSrc = logo;
+    const userImgSrc = user_img;
+
+    const tabs = [
+      { id: 1, name: "Library", path: '/library' },
+      { id: 2, name: "Authors", path: '/authors' },
+      { id: 3, name: "My books", path: '/my-books' },
+    ];
+
+    const changeTab = (tabId) => {
+      chosenTab.value = tabId;
+      router.push(tabs.find(tab => tab.id === tabId).path);
+    };
+
+    const changeClient = (clientId) => {
+      chosenClient.value = clientId;
+      this.$emit('change:client', this.chosenClient)
+    };
+
+    return {
+      chosenTab,
+      chosenClient,
+      logoSrc,
+      userImgSrc,
+      tabs,
+      changeTab,
+      changeClient,
+    };
+  },
+};
+</script>
+      
 <style scoped>
 .tabs-bar {
   align-items: center;

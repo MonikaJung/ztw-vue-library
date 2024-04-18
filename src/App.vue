@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
+    <TabsBar :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
     <router-view />
   </div>
 </template>
@@ -17,11 +17,6 @@ export default {
     return {
       chosenClientId: 0,
       adminLogged: true,
-      tabs: [
-        { id: 1, name: "Library" },
-        { id: 2, name: "Authors" },
-        { id: 3, name: "My books" },
-      ],
       clients: [
         { id: 1, name: "Name", surname: "Surname", borrowedBooks: [] }
       ],

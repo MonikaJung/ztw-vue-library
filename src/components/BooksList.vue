@@ -31,8 +31,8 @@ export default ({
     name: 'books-list',
     props: {
         booksSource: Array,
-        buttonText: Text,
-        buttonHeader: Text
+        buttonText: String,
+        buttonHeader: String
     },
     methods: {
       handleClick(book) {

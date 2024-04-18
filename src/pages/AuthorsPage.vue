@@ -43,7 +43,7 @@ export default {
             try {
                 const response = await fetch('http://localhost:8080/authors')
                 const data = await response.json()
-                this.books = data
+                this.authors = data
             } catch (error) {
                 console.error(error)
             }

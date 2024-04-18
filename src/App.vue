@@ -1,76 +1,54 @@
 <template>
-  <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
-  <BooksListPage v-if="!adminLogged" :clientId="chosenClientId"/>
-  <BooksAdminPage v-if="adminLogged"/>
+  <div>
+    <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import BooksListPage from './pages/BooksListPage.vue'
-import BooksAdminPage from './pages/BooksAdminPage.vue'
 import TabsBar from './components/TabsBar.vue';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    BooksListPage,
-    BooksAdminPage,
     TabsBar,
   },
   data() {
     return {
       chosenClientId: 0,
-      chosenTabId: 1,
       adminLogged: true,
       tabs: [
-        {
-          id: 1,
-          name: "Library"
-        }, {
-          id: 2,
-          name: "My books"
-        },{
-          id: 3,
-          name: "About"
-        },
+        { id: 1, name: "Library" },
+        { id: 2, name: "Authors" },
+        { id: 3, name: "My books" },
       ],
       clients: [
-        {
-          id: 1,
-          name: "Name",
-          surname: "Surname",
-          borrowedBooks: []
-        }
+        { id: 1, name: "Name", surname: "Surname", borrowedBooks: [] }
       ],
-    }
+    };
   },
   methods: {
     changeTab(chosenTabId) {
-      this.chosenTabId = chosenTabId
+      this.chosenTabId = chosenTabId;
     },
     changeClient(chosenClientId) {
-      this.chosenClientId = chosenClientId
-      console.log(chosenClientId + " cl " + this.chosenClientId)
-      if (chosenClientId == 0){
-        this.adminLogged = true
-      }
-      else{
-        this.adminLogged = false
-      }
+      this.chosenClientId = chosenClientId;
+      this.adminLogged = chosenClientId === 0;
     },
     async getClients() {
       try {
-        const response = await fetch('http://localhost:8080/clients')
-        const data = await response.json()
-        this.clients = data
+        const response = await fetch('http://localhost:8080/clients');
+        const data = await response.json();
+        this.clients = data;
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
   },
   mounted() {
-    this.getClients()
+    this.getClients();
   },
-}
+};
 </script>
 
 <style>

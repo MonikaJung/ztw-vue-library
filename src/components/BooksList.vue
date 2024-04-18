@@ -17,7 +17,7 @@
                     <td>{{ book.author.penName }}</td>
                     <td>{{ book.pages }}</td>
                     <td class="td-adjust">
-                        <button v-if="book.available" class="primary-button">{{buttonText}}</button>
+                        <button v-if="book.available" @click="handleClick(book)" class="primary-button">{{buttonText}}</button>
                         <button v-else class="primary-button" disabled>Unavailable</button>
                     </td>
                 </tr>
@@ -34,6 +34,11 @@ export default ({
         buttonText: Text,
         buttonHeader: Text
     },
+    methods: {
+      handleClick(book) {
+        this.$emit('clicked:button', book)
+      }
+    }
 })
 </script>
 

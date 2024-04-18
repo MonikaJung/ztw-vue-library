@@ -1,6 +1,6 @@
 <template>
   <TabsBar :tabsSource="tabs" :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
-  <BooksListPage v-if="!adminLogged"/>
+  <BooksListPage v-if="!adminLogged" :clientId="chosenClientId"/>
   <BooksAdminPage v-if="adminLogged"/>
 </template>
 

@@ -6,7 +6,8 @@
             <label>Select Author</label><br>
             <select v-model="selectedAuthor" :class="{ 'has-error': submitting && invalidAuthor }">
                 <option key="" value="" disabled selected hidden>Select an author...</option>
-                <option v-for="author in authors" :key="author.id" :value="author.id">{{ author.id }}: {{ author.penName }}</option>
+                <option v-for="author in authors" :key="author.id" :value="author.id">{{ author.id }}: {{ author.penName
+                    }}</option>
             </select><br>
             <label>Pages count</label><br>
             <input v-model="book.pages" type="number" min="1" :class="{ 'has-error': submitting && invalidPages }" />
@@ -26,6 +27,7 @@ export default {
     name: 'book-form',
     props: {
         submitText: String,
+        bookData: Object,
     },
     data() {
         return {
@@ -61,13 +63,13 @@ export default {
         handleSubmit() {
             this.submitting = true
             this.clearStatus()
-            
+
             if (this.invalidName || this.invalidSurname || this.invalidTitle || this.invalidPages) {
                 this.error = true
                 return
             }
             this.book.author = this.authors.find(a => a.id === this.selectedAuthor)
-            
+
             this.$emit('submit:form', this.book)
             console.log(this.book)
             this.book = {
@@ -88,9 +90,18 @@ export default {
             this.success = false
             this.error = false
         },
+        setFormFieldsFromBookData() {
+            if (this.bookData) {
+                this.book.id = this.bookData.id || '';
+                this.book.title = this.bookData.title || '';
+                this.selectedAuthor = this.bookData.author.id || '';
+                this.book.pages = this.bookData.pages || '';
+            }
+        },
     },
     mounted() {
         this.getAuthors()
+        this.setFormFieldsFromBookData();
     },
     computed: {
         invalidTitle() {
@@ -124,7 +135,8 @@ export default {
 
 }
 
-.book-form input, .book-form select {
+.book-form input,
+.book-form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -139,12 +151,14 @@ export default {
     margin-right: 40px;
 }
 
-.book-form input:focus, .book-form select:focus {
+.book-form input:focus,
+.book-form select:focus {
     outline: none;
     border: 2px solid #007bff;
 }
 
-.book-form input.has-error, .book-form select.has-error {
+.book-form input.has-error,
+.book-form select.has-error {
     border: 2px solid #dc3545;
 }
 

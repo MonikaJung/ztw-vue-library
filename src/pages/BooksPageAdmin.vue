@@ -3,7 +3,7 @@
 
     <div name="book-list-container" v-if="!state.isAction">
         <div class="header-with-button">
-            <h1>Books list</h1>
+            <h1>All books in the library</h1>
             <button class="primary-button" @click="showAddForm">Add book</button>
         </div>
         <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" @clicked:button="showEditForm"
@@ -12,12 +12,12 @@
 
     <div name="add-book-container" v-if="state.isAction && state.isAdding">
         <h1>Add a new book</h1>
-        <BookForm submitText="Add book" @submit:form="addBook" />
+        <BookForm submitText="Add book" @submit:form="addBook" book="" />
     </div>
 
-    <div name="edit-book-container" v-if="state.isAction && state.isAdding">
+    <div name="edit-book-container" v-if="state.isAction && state.isEditing">
         <h1>Edit book</h1>
-        <BookForm submitText="Save changes" @submit:form="addBook" />
+        <BookForm submitText="Save changes" @submit:form="editBook" :bookData="bookToEdit" />
     </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
                     available: true
                 },
             ],
+            bookToEdit: ''
         }
     },
     methods: {
@@ -81,42 +82,69 @@ export default {
                 })
                 const data = await response.json()
                 if (!response.ok) {
-                    this.popup.visable = true
-                    this.popup.message = data.message
-                    this.popup.type = 'error'
-                    console.log('error: ' + data.error + ', message: ' + data.message)
+                    this.showErrorPopup(data.message + ' (' + data.error + ')')
                 }
                 else {
-                    this.popup.visable = true
-                    this.popup.message = 'New book "' + book.title + '" by ' + book.author.penName + ' was added to the library.'
-                    this.popup.type = 'success'
-                    console.log('Success: ' + data.message)
+                    this.showSuccessPopup('New book "' + book.title + '" by ' + book.author.penName + ' was added to the library.')
                 }
+                this.hideForm()
             } catch (error) {
                 console.error(error)
             }
         },
+        async editBook(book) {
+            try {
+                const response = await fetch(`http://localhost:8080/book/${book.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(book)
+                })
+                const data = await response.json()
+                if (!response.ok) {
+                    this.showErrorPopup(data.message + ' (' + data.error + ')')
+                }
+                else {
+                    this.showSuccessPopup('Book "' + book.title + '" by ' + book.author.penName + ' was updated.')
+                }
+                this.hideForm()
+            } catch (error) {
+                console.error(error)
+            }
+        },
+        showErrorPopup(message) {
+            this.popup.visable = true;
+            this.popup.message = message;
+            this.popup.type = 'error';
+        },
+        showSuccessPopup(message) {
+            this.popup.visable = true
+            this.popup.message = message
+            this.popup.type = 'success'
+        },
         closePopup() {
             this.popup.visable = false;
         },
-        clearState() {
-            this.state.isAction = false
+        clearState(isAction) {
+            this.state.isAction = isAction
             this.state.isAdding = false
             this.state.isEditing = false
             this.state.isRemoving = false
         },
         showAddForm() {
-            this.clearState()
-            this.state.isAction = true
+            this.clearState(true)
             this.state.isAdding = true
         },
-        showEditForm() {
-            this.clearState()
-            this.state.isAction = true
+        showEditForm(book) {
+            this.clearState(true)
             this.state.isEditing = true
+            this.bookToEdit = book
         },
-        async editBook() {
-
+        hideForm() {
+            this.clearState(false)
+            this.bookToEdit = ''
+            this.getBooks()
         },
     },
     mounted() {
@@ -160,7 +188,7 @@ export default {
 }
 
 .header-with-button h1 {
-    flex: 1; 
+    flex: 1;
     text-align: center;
 }
 
@@ -169,5 +197,4 @@ export default {
     float: right;
     font-size: 20px;
 }
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <TabsBar :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
-    <router-view />
+    <router-view :clientId="chosenClientId" :isAdmin="adminLogged" />
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     },
     changeClient(chosenClientId) {
       this.chosenClientId = chosenClientId;
-      this.adminLogged = chosenClientId === 0;
+      this.adminLogged = (this.chosenClientId == 0);
     },
     async getClients() {
       try {
@@ -53,9 +53,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+
 .hidden {
   visibility: hidden;
 }
+
 .visable {
   visibility: visible;
 }

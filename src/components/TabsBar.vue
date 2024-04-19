@@ -1,7 +1,8 @@
 <template>
   <div class="tabs-bar">
     <div class="tabs-container">
-      <button class="icon-button" @click="goToHomePage()"><img class="icon logo-icon" :src="logoSrc" alt="Logo"></button>
+      <button class="icon-button" @click="goToHomePage()"><img class="icon logo-icon" :src="logoSrc"
+          alt="Logo"></button>
       <div v-for="tabObj in tabs" :key="tabObj.id">
         <button :class="{ 'tab-button': true, 'chosen-tab': tabObj.id === chosenTab }" :id="'tab-' + tabObj.id"
           @click="changeTab(tabObj.id)">{{ tabObj.name }}</button>
@@ -34,7 +35,7 @@ export default {
     tabsSource: Array,
     clientsSource: Array,
   },
-  setup() {
+  setup(propc, { emit }) {
     const router = useRouter();
     const chosenTab = ref(1);
     const chosenClient = ref(0);
@@ -55,7 +56,7 @@ export default {
 
     const changeClient = (clientId) => {
       chosenClient.value = clientId;
-      this.$emit('change:client', this.chosenClient)
+      emit('change:client', chosenClient)
     };
 
     const goToHomePage = () => {
@@ -76,7 +77,7 @@ export default {
   },
 };
 </script>
-      
+
 <style scoped>
 .tabs-bar {
   align-items: center;

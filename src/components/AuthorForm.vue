@@ -64,9 +64,8 @@ export default {
         },
         setFormFieldsFromAuthorData() {
             if (this.authorData) {
-                this.author.id = this.authorData.id || '';
                 this.author.name = this.authorData.name || '';
-                this.selectedAuthor = this.authorData.author.id || '';
+                this.author.penName = this.authorData.penName || '';
                 this.author.surname = this.authorData.surname || '';
             }
         },

@@ -6,12 +6,12 @@
             <h1>All books in the library</h1>
             <button class="primary-button" @click="showAddForm">Add book</button>
         </div>
-        <BooksList :booksSource="books" :columns="columns" @clicked:button="showEditForm"
+        <BooksList :booksSource="books" buttonText="Edit book" columnHeader="Edit" @clicked:button="showEditForm"
             :buttonWhenBookAvailable="true" />
     </div>
 
     <div name="add-book-container" v-if="state.isAction && state.isAdding">
-        <div class="header-with-button form">
+        <div class="header-with-button form one-button">
             <button class="primary-button" @click="hideForm">Cancel</button>
             <h1>Add a new book</h1>
         </div>
@@ -20,9 +20,10 @@
     </div>
 
     <div name="edit-book-container" v-if="state.isAction && state.isEditing">
-        <div class="header-with-button form">
-            <button class="primary-button" @click="hideForm">Cancel</button>
+        <div class="header-with-button form two-buttons">
+            <button class="primary-button left" @click="hideForm">Cancel</button>
             <h1>Edit book</h1>
+            <button class="primary-button delete right" @click="deleteBook">Delete book</button>
         </div>
         <BookForm submitText="Save changes" @submit:form="editBook" :bookData="bookToEdit" />
     </div>
@@ -45,16 +46,6 @@ export default {
     },
     data() {
         return {
-            columns: [
-                {
-                    buttonText: "Edit book",
-                    header: "Edit",
-                },
-                {
-                    buttonText: "Delete",
-                    header: "Delete",
-                },
-            ],
             state: {
                 isAction: false,
                 isAdding: false,
@@ -199,6 +190,24 @@ export default {
     cursor: not-allowed;
 }
 
+.primary-button.delete {
+    background-color: #dc3545;
+}
+
+.primary-button.delete:hover {
+    background-color: #c82333;
+}
+
+.primary-button.delete:active {
+    background-color: #bd2130;
+}
+
+.primary-button.delete:disabled {
+    background-color: #6c757d;
+    color: #ced4da;
+    cursor: not-allowed;
+}
+
 .header-with-button {
     display: flex;
     align-items: center;
@@ -223,12 +232,22 @@ export default {
     float: right;
 }
 
-.header-with-button.form h1 {
+.header-with-button.form.one-button h1 {
     margin-right: 22%;
 }
 
-.header-with-button.form button {
+.header-with-button.form.one-button button {
+    margin-right: 30px;
+    float: right;
+}
+
+.header-with-button.form button.left {
     margin-left: 10%;
     float: left;
+}
+
+.header-with-button.form button.right {
+    margin-right: 10%;
+    float: right;
 }
 </style>

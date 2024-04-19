@@ -1,7 +1,7 @@
 <template>
     <h1>Books left in the library</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
-    <BooksList :booksSource="books" :columns="columns" @clicked:button="editBook"
+    <BooksList :booksSource="books" buttonText="Edit" columnHeader="Edit" @clicked:button="editBook"
         :buttonWhenBookAvailable="true" />
 </template>
 
@@ -20,12 +20,6 @@ export default {
     },
     data() {
         return {
-            columns: [
-                {
-                    buttonText: "Edit book",
-                    header: "Edit",
-                },
-            ],
             popup: {
                 visable: false,
                 message: '',

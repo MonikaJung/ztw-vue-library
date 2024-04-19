@@ -1,9 +1,11 @@
 <template>
-    <AuthorsPageAdmin />
+    <AuthorsPageAdmin v-if="isAdmin"/>
+    <AuthorsPageUser v-if="!isAdmin" :clientId="clientId"/>
 </template>
 
 <script>
 import AuthorsPageAdmin from '../pages/AuthorsPageAdmin.vue'
+import AuthorsPageUser from '../pages/AuthorsPageUser.vue'
 
 export default {
     name: 'authors-page',
@@ -13,44 +15,7 @@ export default {
     },
     components: {
         AuthorsPageAdmin,
-    },
-    data() {
-        return {
-            authors: [
-                {
-                    id: 1,
-                    name: 'author1',
-                    surname: '124',
-                    penName: 'author1 1234'
-                },
-                {
-                    id: 2,
-                    name: 'author2',
-                    surname: '124',
-                    penName: 'author2 1234'
-                },
-                {
-                    id: 3,
-                    name: 'author3',
-                    surname: '124',
-                    penName: 'author3 1234'
-                },
-            ],
-        }
-    },
-    methods: {
-        async getAuthors() {
-            try {
-                const response = await fetch('http://localhost:8080/authors')
-                const data = await response.json()
-                this.authors = data
-            } catch (error) {
-                console.error(error)
-            }
-        },
-    },
-    mounted() {
-        this.getAuthors()
+        AuthorsPageUser,
     },
 }
 </script>

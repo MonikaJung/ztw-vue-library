@@ -1,18 +1,13 @@
 <template>
-    <div name="author-list-container">
-        <div class="header-with-button">
-            <h1>Authors</h1>
-            <button class="primary-button" @click="showAddForm">Add Author</button>
-        </div>
-        <AuthorsList :authorsSource="authors"/>
-    </div>
+    <h1>Authors</h1>
+    <AuthorsList :authorsSource="authors" />
 </template>
 
 <script>
 import AuthorsList from '../components/AuthorsList.vue'
 
 export default {
-    name: 'authors-page-admin',
+    name: 'authors-page-user',
     props: {
         clientId: Number,
     },

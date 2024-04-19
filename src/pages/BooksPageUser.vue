@@ -1,7 +1,8 @@
 <template>
     <h1>Borrow books</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
-    <BooksList :booksSource="books" buttonText="Borrow!" buttonHeader="Borrow" @clicked:button="borrowBook" />
+    <BooksList :booksSource="books" buttonText="Borrow!" buttonHeader="Borrow" @clicked:button="borrowBook"
+        :buttonWhenBookAvailable="true" />
 </template>
 
 <script>
@@ -59,7 +60,7 @@ export default {
                     this.popup.visable = true
                     this.popup.message = data.message
                     this.popup.type = 'success'
-                    console.log('Success: ' + data.message)                 
+                    console.log('Success: ' + data.message)
                     this.getBooks()
                 }
             } catch (error) {

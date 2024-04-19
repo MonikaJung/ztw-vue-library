@@ -3,7 +3,8 @@
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
     <BookForm v-if="state.isAdding" submitText="Add book" @add:book="addBook" />
     <h1>Edit Books</h1>
-    <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" />
+    <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" @clicked:button="editBook"
+        :buttonWhenBookAvailable="true" />
 </template>
 
 <script>
@@ -73,7 +74,7 @@ export default {
                 }
                 else {
                     this.popup.visable = true
-                    this.popup.message = 'New book "' + book.title +'" by ' + book.author.penName + ' was added to the library.'
+                    this.popup.message = 'New book "' + book.title + '" by ' + book.author.penName + ' was added to the library.'
                     this.popup.type = 'success'
                     console.log('Success: ' + data.message)
                 }
@@ -81,9 +82,12 @@ export default {
                 console.error(error)
             }
         },
+        async editBook(book) {
+
+        },
     },
     closePopup() {
-      this.popup.visable = false;
+        this.popup.visable = false;
     },
     mounted() {
         this.getBooks()

@@ -1,44 +1,46 @@
 <template>
-    <div class="books-list">
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Pages</th>
-                    <th class="th-adjust">{{buttonHeader}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="book in booksSource" :key="book.id">
-                    <td>{{ book.id }}</td>
-                    <td>"{{ book.title }}"</td>
-                    <td>{{ book.author.penName }}</td>
-                    <td>{{ book.pages }}</td>
-                    <td class="td-adjust">
-                        <button v-if="book.available" @click="handleClick(book)" class="primary-button">{{buttonText}}</button>
-                        <button v-else class="primary-button" disabled>Unavailable</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="books-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th class="th-adjust">{{ buttonHeader }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="book in booksSource" :key="book.id">
+          <td>{{ book.id }}</td>
+          <td>"{{ book.title }}"</td>
+          <td>{{ book.author.penName }}</td>
+          <td>{{ book.pages }}</td>
+          <td class="td-adjust">
+            <button v-if="buttonWhenBookAvailable && book.available || !buttonWhenBookAvailable && !book.available"
+              @click="handleClick(book)" class="primary-button">{{ buttonText }}</button>
+            <button v-else class="primary-button" disabled>Unavailable</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 export default ({
-    name: 'books-list',
-    props: {
-        booksSource: Array,
-        buttonText: String,
-        buttonHeader: String
-    },
-    methods: {
-      handleClick(book) {
-        this.$emit('clicked:button', book)
-      }
+  name: 'books-list',
+  props: {
+    booksSource: Array,
+    buttonText: String,
+    buttonHeader: String,
+    buttonWhenBookAvailable: Boolean,
+  },
+  methods: {
+    handleClick(book) {
+      this.$emit('clicked:button', book)
     }
+  }
 })
 </script>
 
@@ -85,7 +87,7 @@ tr:hover {
 }
 
 .th-adjust {
- text-align: center;
+  text-align: center;
 }
 
 .primary-button {
@@ -115,5 +117,4 @@ tr:hover {
   color: #ced4da;
   cursor: not-allowed;
 }
-
 </style>

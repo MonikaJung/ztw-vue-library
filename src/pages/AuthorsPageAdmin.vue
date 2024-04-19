@@ -1,6 +1,6 @@
 <template>
     <div name="author-list-container">
-        <div class="header-with-button">
+        <div class="header-with-button table">
             <h1>Authors</h1>
             <button class="primary-button" @click="showAddForm">Add Author</button>
         </div>

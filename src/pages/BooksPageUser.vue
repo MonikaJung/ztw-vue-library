@@ -1,7 +1,7 @@
 <template>
     <h1>Borrow books</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
-    <BooksList :booksSource="books" buttonText="Borrow!" buttonHeader="Borrow" @clicked:button="borrowBook"
+    <BooksList :booksSource="books" :columns="columns" @clicked:button="borrowBook"
         :buttonWhenBookAvailable="true" />
 </template>
 
@@ -20,6 +20,12 @@ export default {
     },
     data() {
         return {
+            columns: [
+                {
+                    buttonText: "Borrow!",
+                    header: "Borrow",
+                },
+            ],
             popup: {
                 visable: false,
                 message: '',

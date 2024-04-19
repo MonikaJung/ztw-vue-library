@@ -2,21 +2,28 @@
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
 
     <div name="book-list-container" v-if="!state.isAction">
-        <div class="header-with-button">
+        <div class="header-with-button table">
             <h1>All books in the library</h1>
             <button class="primary-button" @click="showAddForm">Add book</button>
         </div>
-        <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" @clicked:button="showEditForm"
+        <BooksList :booksSource="books" :columns="columns" @clicked:button="showEditForm"
             :buttonWhenBookAvailable="true" />
     </div>
 
     <div name="add-book-container" v-if="state.isAction && state.isAdding">
-        <h1>Add a new book</h1>
+        <div class="header-with-button form">
+            <button class="primary-button" @click="hideForm">Cancel</button>
+            <h1>Add a new book</h1>
+        </div>
+
         <BookForm submitText="Add book" @submit:form="addBook" book="" />
     </div>
 
     <div name="edit-book-container" v-if="state.isAction && state.isEditing">
-        <h1>Edit book</h1>
+        <div class="header-with-button form">
+            <button class="primary-button" @click="hideForm">Cancel</button>
+            <h1>Edit book</h1>
+        </div>
         <BookForm submitText="Save changes" @submit:form="editBook" :bookData="bookToEdit" />
     </div>
 </template>
@@ -38,6 +45,16 @@ export default {
     },
     data() {
         return {
+            columns: [
+                {
+                    buttonText: "Edit book",
+                    header: "Edit",
+                },
+                {
+                    buttonText: "Delete",
+                    header: "Delete",
+                },
+            ],
             state: {
                 isAction: false,
                 isAdding: false,
@@ -193,8 +210,25 @@ export default {
 }
 
 .header-with-button button {
+    width: 15%;
+    font-size: 20px;
+}
+
+.header-with-button.table h1 {
+    margin-left: 10%;
+}
+
+.header-with-button.table button {
     margin-right: 30px;
     float: right;
-    font-size: 20px;
+}
+
+.header-with-button.form h1 {
+    margin-right: 22%;
+}
+
+.header-with-button.form button {
+    margin-left: 10%;
+    float: left;
 }
 </style>

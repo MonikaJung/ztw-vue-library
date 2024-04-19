@@ -7,7 +7,7 @@
           <th>Title</th>
           <th>Author</th>
           <th>Pages</th>
-          <th class="th-adjust">{{ buttonHeader }}</th>
+          <th v-for="column in columns" :key="column.id" class="th-adjust">{{ column.header }}</th>
         </tr>
       </thead>
       <tbody>
@@ -16,9 +16,9 @@
           <td>"{{ book.title }}"</td>
           <td>{{ book.author.penName }}</td>
           <td>{{ book.pages }}</td>
-          <td class="td-adjust">
+          <td v-for="column in columns" :key="column.id" class="td-adjust">
             <button v-if="buttonWhenBookAvailable && book.available || !buttonWhenBookAvailable && !book.available"
-              @click="handleClick(book)" class="primary-button">{{ buttonText }}</button>
+              @click="handleClick(book)" class="primary-button">{{ column.buttonText }}</button>
             <button v-else class="primary-button" disabled>Unavailable</button>
           </td>
         </tr>
@@ -32,8 +32,7 @@ export default ({
   name: 'books-list',
   props: {
     booksSource: Array,
-    buttonText: String,
-    buttonHeader: String,
+    columns: Array,
     buttonWhenBookAvailable: Boolean,
   },
   methods: {
@@ -91,6 +90,7 @@ tr:hover {
 }
 
 .primary-button {
+  width: 100%;
   background-color: #007bff;
   color: #ffffff;
   border: none;

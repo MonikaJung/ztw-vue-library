@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import BooksAdminPage from './BooksAdminPage.vue';
-import BooksUserPage from './BooksUserPage.vue';
+import BooksAdminPage from './BooksPageAdmin.vue';
+import BooksUserPage from './BooksPageUser.vue';
 
 export default {
     name: 'books-page',

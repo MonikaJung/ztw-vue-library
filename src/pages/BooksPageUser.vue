@@ -1,5 +1,5 @@
 <template>
-    <h1>Borrow books</h1>
+    <h1>Borrow books from the library</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
     <BooksList :booksSource="books" buttonText="Borrow!" columnHeader="Borrow" @clicked:button="borrowBook"
         :buttonWhenBookAvailable="true" />

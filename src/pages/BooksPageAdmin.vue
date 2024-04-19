@@ -15,7 +15,6 @@
             <button class="primary-button" @click="hideForm">Cancel</button>
             <h1>Add a new book</h1>
         </div>
-
         <BookForm submitText="Add book" @submit:form="addBook" book="" />
     </div>
 
@@ -83,18 +82,12 @@ export default {
             try {
                 const response = await fetch('http://localhost:8080/book', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(book)
                 })
                 const data = await response.json()
-                if (!response.ok) {
-                    this.showErrorPopup(data.message + ' (' + data.error + ')')
-                }
-                else {
-                    this.showSuccessPopup('New book "' + book.title + '" by ' + book.author.penName + ' was added to the library.')
-                }
+                if (!response.ok) this.showErrorPopup(data.message + ' (' + data.error + ')')
+                else this.showSuccessPopup('New book "' + book.title + '" by ' + book.author.penName + ' was added to the library.')
                 this.hideForm()
             } catch (error) {
                 console.error(error)
@@ -104,18 +97,31 @@ export default {
             try {
                 const response = await fetch(`http://localhost:8080/book/${book.id}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(book)
                 })
                 const data = await response.json()
-                if (!response.ok) {
+                if (!response.ok) 
                     this.showErrorPopup(data.message + ' (' + data.error + ')')
-                }
-                else {
+                else 
                     this.showSuccessPopup('Book "' + book.title + '" by ' + book.author.penName + ' was updated.')
-                }
+                this.hideForm()
+            } catch (error) {
+                console.error(error)
+            }
+        },
+        async deleteBook() {
+            try {
+                const response = await fetch(`http://localhost:8080/book/${this.bookToEdit.id}`, {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(this.bookToEdit)
+                })
+                const data = await response.json()
+                if (!response.ok) 
+                    this.showErrorPopup(data.message + ' (' + data.error + ')')
+                else 
+                    this.showSuccessPopup('Book "' + this.bookToEdit.title + '" by ' + this.bookToEdit.author.penName + ' was deleted.')
                 this.hideForm()
             } catch (error) {
                 console.error(error)
@@ -237,8 +243,8 @@ export default {
 }
 
 .header-with-button.form.one-button button {
-    margin-right: 30px;
-    float: right;
+    margin-left: 10%;
+    float: left;
 }
 
 .header-with-button.form button.left {

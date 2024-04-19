@@ -31,7 +31,6 @@ export default {
             error: false,
             success: false,
             author: {
-                id: '',
                 name: '',
                 author: '',
                 surname: '',
@@ -76,7 +75,7 @@ export default {
         this.setFormFieldsFromAuthorData();
     },
     computed: {
-        invalidname() {
+        invalidName() {
             return this.author.name === ''
         },
         invalidPenName() {

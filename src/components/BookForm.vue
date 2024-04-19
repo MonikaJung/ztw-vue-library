@@ -64,7 +64,7 @@ export default {
             this.submitting = true
             this.clearStatus()
 
-            if (this.invalidName || this.invalidSurname || this.invalidTitle || this.invalidPages) {
+            if (this.invalidTitle || this.invalidAuthor || this.invalidPages) {
                 this.error = true
                 return
             }

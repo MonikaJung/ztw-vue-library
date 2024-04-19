@@ -15,7 +15,7 @@
             <button class="primary-button" @click="hideForm">Cancel</button>
             <h1>Add a new author</h1>
         </div>
-        <AuthorForm submitText="Add author" @submit:form="addAuthor" authorData='' />
+        <AuthorForm submitText="Add author" @submit:form="addAuthor" authorData="" />
     </div>
 
     <div name="edit-author-container" v-if="state.isAction && state.isEditing">
@@ -74,6 +74,7 @@ export default {
             }
         },
         async addAuthor(author) {
+            console.log(author)
             try {
                 const response = await fetch('http://localhost:8080/author', {
                     method: 'POST',

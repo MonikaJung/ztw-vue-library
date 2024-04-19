@@ -75,6 +75,7 @@ export default {
             }
         },
         async addBook(book) {
+            console.log(book)
             try {
                 const response = await fetch('http://localhost:8080/book', {
                     method: 'POST',

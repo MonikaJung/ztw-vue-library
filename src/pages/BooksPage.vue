@@ -1,6 +1,6 @@
 <template>
     <h1>Books</h1>
-    <BooksList :booksSource="books"  buttonText="Borrow book!" buttonHeader="Borrow" @clicked:button="borrowBook"/>
+    <BooksList v-if="!isAdmin" :booksSource="books"  buttonText="Borrow!" buttonHeader="Borrow" @clicked:button="borrowBook"/>
 </template>
 
 <script>
@@ -10,6 +10,7 @@ export default {
     name: 'books-page',
     props: {
         clientId: Number,
+        isAdmin: Boolean,
     },
     components: {
         BooksList,

@@ -35,7 +35,7 @@ export default {
     tabsSource: Array,
     clientsSource: Array,
   },
-  setup(propc, { emit }) {
+  setup(props, { emit }) {
     const router = useRouter();
     const chosenTab = ref(1);
     const chosenClient = ref(0);

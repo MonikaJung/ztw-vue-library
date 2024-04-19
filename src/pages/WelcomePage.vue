@@ -1,7 +1,7 @@
 <template>
     <div class="welcome-page">
         <h1>Welcome to the Library</h1>
-        <p>Choose your <strong>user account</strong> in the top right corner and explore!</p>
+        <p>Choose <strong>user account</strong> in the top right corner and explore!</p>
     </div>
 </template>
 

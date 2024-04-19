@@ -82,7 +82,7 @@ export default {
                 console.error(error)
             }
         },
-        async editBook(book) {
+        async editBook() {
 
         },
     },

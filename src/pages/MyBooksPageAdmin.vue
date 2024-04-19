@@ -52,7 +52,7 @@ export default {
                 console.error(error)
             }
         },
-        editBook(book){
+        editBook(){
 
         },
         closePopup() {

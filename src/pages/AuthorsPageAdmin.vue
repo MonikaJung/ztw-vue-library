@@ -1,18 +1,23 @@
 <template>
-    <AuthorsPageAdmin />
+    <div name="author-list-container">
+        <div class="header-with-button">
+            <h1>Authors</h1>
+            <button class="primary-button" @click="showAddForm">Add Author</button>
+        </div>
+        <AuthorsList :authorsSource="authors"/>
+    </div>
 </template>
 
 <script>
-import AuthorsPageAdmin from '../pages/AuthorsPageAdmin.vue'
+import AuthorsList from '../components/AuthorsList.vue'
 
 export default {
-    name: 'authors-page',
+    name: 'authors-page-admin',
     props: {
         clientId: Number,
-        isAdmin: Boolean,
     },
     components: {
-        AuthorsPageAdmin,
+        AuthorsList,
     },
     data() {
         return {
@@ -56,4 +61,5 @@ export default {
 </script>
 
 <style>
+/* Style the same as in BooksPageAdmin.vue */
 </style>

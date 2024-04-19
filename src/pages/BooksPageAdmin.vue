@@ -153,7 +153,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .primary-button {
     background-color: #007bff;
     color: #ffffff;

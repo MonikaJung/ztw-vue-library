@@ -82,8 +82,10 @@ export default {
                     body: JSON.stringify(author)
                 })
                 const data = await response.json()
-                if (!response.ok) this.showErrorPopup(data.message + ' (' + data.error + ')')
-                else this.showSuccessPopup('New author "' + author.title + '" by ' + author.author.penName + ' was added to the library.')
+                if (!response.ok) 
+                    this.showErrorPopup(data.message + ' (' + data.error + ')')
+                else 
+                    this.showSuccessPopup('New author "' + author.title + '" by ' + author.author.penName + ' was added to the library.')
                 this.hideForm()
             } catch (error) {
                 console.error(error)

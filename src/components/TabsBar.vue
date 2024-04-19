@@ -98,7 +98,7 @@ export default {
   height: 50px;
 }
 
-.tabs-container button.icon-button {
+.tabs-container button {
   background-color: inherit;
   float: left;
   border: none;
@@ -108,24 +108,18 @@ export default {
 }
 
 .tabs-container button.tab-button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
   padding: 14px 16px;
   transition: background-color 0.3s;
   font-size: 17px;
   color: #ffffff;
-  border-radius: 20px;
-}
-
-.tabs-container button.tab-button:hover {
-  background-color: #0056b3;
 }
 
 .tabs-container button.tab-button.active {
   background-color: #007bff;
+}
+
+.tabs-container button.tab-button:hover {
+  background-color: #0056b3;
 }
 
 button.tab-button.chosen-tab {

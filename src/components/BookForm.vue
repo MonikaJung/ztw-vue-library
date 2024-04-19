@@ -132,7 +132,7 @@ export default {
 
 .book-form label {
     color: #ffffff;
-
+    font-size: 18px;
 }
 
 .book-form input,
@@ -144,6 +144,7 @@ export default {
     border-radius: 5px;
     background-color: #343a40;
     color: #ffffff;
+    font-size: 18px;
 }
 
 .book-form input {
@@ -185,6 +186,7 @@ export default {
     transition: background-color 0.3s, box-shadow 0.2s;
     border-radius: 5px;
     outline: none;
+    font-size: 20px;
 }
 
 .book-form button:hover {

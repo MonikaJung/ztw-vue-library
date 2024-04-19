@@ -49,11 +49,12 @@
     color: #ffffff;
     padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
   }
   
   .popup span {
     margin-right: 15px;
+    font-size: 18px;
   }
   
   .popup button {
@@ -61,22 +62,22 @@
     border: none;
     color: #ffffff;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     position: absolute;
     top: 5px;
     right: 10px;
   }
   
   .success {
-    background-color: #28a745; /* Green */
+    background-color: #1c7330; /* Green */
   }
   
   .info {
-    background-color: #ffc107; /* Yellow */
+    background-color: #ad8201; /* Yellow */
   }
   
   .error {
-    background-color: #dc3545; /* Red */
+    background-color: #92242f; /* Red */
   }
   </style>
   

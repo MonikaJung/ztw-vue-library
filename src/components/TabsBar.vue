@@ -1,9 +1,9 @@
 <template>
   <div class="tabs-bar">
     <div class="tabs-container">
-      <img class="icon logo-icon" :src="logoSrc" alt="Logo">
+      <button class="icon-button" @click="goToHomePage()"><img class="icon logo-icon" :src="logoSrc" alt="Logo"></button>
       <div v-for="tabObj in tabs" :key="tabObj.id">
-        <button :class="{ 'tablinks': true, 'chosen-tab': tabObj.id === chosenTab }" :id="'tab-' + tabObj.id"
+        <button :class="{ 'tab-button': true, 'chosen-tab': tabObj.id === chosenTab }" :id="'tab-' + tabObj.id"
           @click="changeTab(tabObj.id)">{{ tabObj.name }}</button>
       </div>
     </div>
@@ -58,6 +58,11 @@ export default {
       this.$emit('change:client', this.chosenClient)
     };
 
+    const goToHomePage = () => {
+      chosenTab.value = 0;
+      router.push('/');
+    }
+
     return {
       chosenTab,
       chosenClient,
@@ -66,6 +71,7 @@ export default {
       tabs,
       changeTab,
       changeClient,
+      goToHomePage,
     };
   },
 };
@@ -92,7 +98,16 @@ export default {
   height: 50px;
 }
 
-.tabs-container button {
+.tabs-container button.icon-button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.tabs-container button.tab-button {
   background-color: inherit;
   float: left;
   border: none;
@@ -105,15 +120,15 @@ export default {
   border-radius: 20px;
 }
 
-.tabs-container button:hover {
+.tabs-container button.tab-button:hover {
   background-color: #0056b3;
 }
 
-.tabs-container button.active {
+.tabs-container button.tab-button.active {
   background-color: #007bff;
 }
 
-button.tablinks.chosen-tab {
+button.tab-button.chosen-tab {
   background-color: #007bff;
   color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);

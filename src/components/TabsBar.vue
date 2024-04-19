@@ -56,7 +56,7 @@ export default {
 
     const changeClient = (clientId) => {
       chosenClient.value = clientId;
-      emit('change:client', chosenClient)
+      emit('change:client', chosenClient);
     };
 
     const goToHomePage = () => {

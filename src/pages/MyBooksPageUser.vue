@@ -1,5 +1,5 @@
 <template>
-    <h1>My borrowed books</h1>
+    <h1>My borrowed</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
     <BooksList :booksSource="books" buttonText="Return" buttonHeader="Return" @clicked:button="returnBook"
         :buttonWhenBookAvailable="false" />
@@ -74,8 +74,14 @@ export default {
             }
         },
         closePopup() {
-            this.popup.visable = false;
+            this.popup.visable = false
         },
+    },
+    watch: {
+        clientId() {
+            this.getUserBooks()
+            console.log(this.clientId + ' changed')
+        }
     },
     mounted() {
         this.getUserBooks()

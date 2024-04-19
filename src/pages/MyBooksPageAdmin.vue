@@ -2,7 +2,7 @@
     <h1>Books left in the library</h1>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
     <BooksList :booksSource="books" buttonText="Edit" buttonHeader="Edit" @clicked:button="editBook"
-        :buttonWhenBookAvailable="false" />
+        :buttonWhenBookAvailable="true" />
 </template>
 
 <script>
@@ -60,7 +60,7 @@ export default {
         },
     },
     mounted() {
-        this.getUserBooks()
+        this.getAvailableBooks()
     },
 }
 </script>

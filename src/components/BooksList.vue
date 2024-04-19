@@ -45,7 +45,7 @@ export default ({
 </script>
 
 
-<style scoped>
+<style>
 table {
   width: 96%;
   margin-left: 2%;

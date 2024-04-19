@@ -32,7 +32,7 @@ export default {
             submitting: false,
             error: false,
             success: false,
-            selectedAuthor: '', // Added selectedAuthor data property
+            selectedAuthor: '',
             book: {
                 title: '',
                 author: '',
@@ -68,7 +68,7 @@ export default {
             }
             this.book.author = this.authors.find(a => a.id === this.selectedAuthor)
             
-            this.$emit('add:book', this.book)
+            this.$emit('submit:form', this.book)
             console.log(this.book)
             this.book = {
                 title: '',

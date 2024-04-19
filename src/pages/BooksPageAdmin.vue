@@ -1,10 +1,24 @@
 <template>
-    <button>Add book</button>
     <Popup v-if="popup.visable" :message="popup.message" :type="popup.type" @close="closePopup" />
-    <BookForm v-if="state.isAdding" submitText="Add book" @add:book="addBook" />
-    <h1>Edit Books</h1>
-    <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" @clicked:button="editBook"
-        :buttonWhenBookAvailable="true" />
+
+    <div name="book-list-container" v-if="!state.isAction">
+        <div class="header-with-button">
+            <h1>Books list</h1>
+            <button class="primary-button" @click="showAddForm">Add book</button>
+        </div>
+        <BooksList :booksSource="books" buttonText="Edit book" buttonHeader="Edit" @clicked:button="showEditForm"
+            :buttonWhenBookAvailable="true" />
+    </div>
+
+    <div name="add-book-container" v-if="state.isAction && state.isAdding">
+        <h1>Add a new book</h1>
+        <BookForm submitText="Add book" @submit:form="addBook" />
+    </div>
+
+    <div name="edit-book-container" v-if="state.isAction && state.isAdding">
+        <h1>Edit book</h1>
+        <BookForm submitText="Save changes" @submit:form="addBook" />
+    </div>
 </template>
 
 <script>
@@ -25,9 +39,9 @@ export default {
     data() {
         return {
             state: {
-                isAdding: true,
+                isAction: false,
+                isAdding: false,
                 isEditing: false,
-                isReading: true,
                 isRemoving: false
             },
             popup: {
@@ -82,12 +96,28 @@ export default {
                 console.error(error)
             }
         },
+        closePopup() {
+            this.popup.visable = false;
+        },
+        clearState() {
+            this.state.isAction = false
+            this.state.isAdding = false
+            this.state.isEditing = false
+            this.state.isRemoving = false
+        },
+        showAddForm() {
+            this.clearState()
+            this.state.isAction = true
+            this.state.isAdding = true
+        },
+        showEditForm() {
+            this.clearState()
+            this.state.isAction = true
+            this.state.isEditing = true
+        },
         async editBook() {
 
         },
-    },
-    closePopup() {
-        this.popup.visable = false;
     },
     mounted() {
         this.getBooks()
@@ -95,11 +125,49 @@ export default {
 }
 </script>
 
-<style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+<style scoped>
+.primary-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.2s;
+    border-radius: 5px;
+    outline: none;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+.primary-button:active {
+    background-color: #004085;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.primary-button:disabled {
+    background-color: #5a6268;
+    color: #ced4da;
+    cursor: not-allowed;
+}
+
+.header-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.header-with-button h1 {
+    flex: 1; 
     text-align: center;
 }
+
+.header-with-button button {
+    margin-right: 30px;
+    float: right;
+    font-size: 20px;
+}
+
 </style>

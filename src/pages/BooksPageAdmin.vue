@@ -15,7 +15,7 @@
             <button class="primary-button" @click="hideForm">Cancel</button>
             <h1>Add a new book</h1>
         </div>
-        <BookForm submitText="Add book" @submit:form="addBook" book="" />
+        <BookForm submitText="Add book" @submit:form="addBook" bookData="" />
     </div>
 
     <div name="edit-book-container" v-if="state.isAction && state.isEditing">
@@ -35,9 +35,6 @@ import Popup from '../components/Popup.vue';
 
 export default {
     name: 'books-page-admin',
-    props: {
-        clientId: Number,
-    },
     components: {
         BooksList,
         BookForm,
@@ -49,7 +46,6 @@ export default {
                 isAction: false,
                 isAdding: false,
                 isEditing: false,
-                isRemoving: false
             },
             popup: {
                 visable: false,

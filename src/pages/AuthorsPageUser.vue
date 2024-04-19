@@ -1,6 +1,6 @@
 <template>
     <h1>Authors</h1>
-    <AuthorsList :authorsSource="authors" />
+    <AuthorsList :authorsSource="authors" :isAdmin="false"/>
 </template>
 
 <script>

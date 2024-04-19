@@ -1,7 +1,7 @@
 <template>
   <div>
     <TabsBar :clientsSource="clients" @change:tab="changeTab" @change:client="changeClient" />
-    <router-view :clientId="chosenClientId" :isAdmin="adminLogged" />
+    <router-view :clientId=chosenClientId :isAdmin=adminLogged />
   </div>
 </template>
 

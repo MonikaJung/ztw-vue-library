@@ -1,7 +1,7 @@
 <template>
     <div v-if="show" :class="['popup', messageType]">
       <span>{{ message }}</span>
-      <button @click="closePopup">X</button>
+      <button @click="closePopup">x</button>
     </div>
   </template>
   
@@ -53,7 +53,7 @@
   }
   
   .popup span {
-    margin-right: 10px;
+    margin-right: 15px;
   }
   
   .popup button {

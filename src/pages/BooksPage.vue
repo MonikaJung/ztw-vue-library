@@ -1,6 +1,6 @@
 <template>
-    <BooksUserPage v-if="!isAdmin" buttonText="Borrow!" buttonHeader="Borrow" :clientId=clientId />
-    <BooksAdminPage v-if="isAdmin" buttonText="Edit" buttonHeader="Edit"/>
+    <BooksUserPage v-if="!isAdmin" :clientId=clientId />
+    <BooksAdminPage v-if="isAdmin" />
 </template>
 
 <script>

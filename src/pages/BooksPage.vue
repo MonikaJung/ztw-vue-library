@@ -1,10 +1,11 @@
 <template>
-    <h1>Books</h1>
-    <BooksList v-if="!isAdmin" :booksSource="books"  buttonText="Borrow!" buttonHeader="Borrow" @clicked:button="borrowBook"/>
+    <BooksUserPage v-if="!isAdmin" buttonText="Borrow!" buttonHeader="Borrow" :clientId=clientId />
+    <BooksAdminPage v-if="isAdmin" buttonText="Edit" buttonHeader="Edit"/>
 </template>
 
 <script>
-import BooksList from '../components/BooksList.vue'
+import BooksAdminPage from './BooksAdminPage.vue';
+import BooksUserPage from './BooksUserPage.vue';
 
 export default {
     name: 'books-page',
@@ -13,63 +14,8 @@ export default {
         isAdmin: Boolean,
     },
     components: {
-        BooksList,
-    },
-    data() {
-        return {
-            books: [
-                {
-                    id: 1,
-                    title: 'Book1',
-                    author: { penName: 'Author1' },
-                    pages: 100,
-                    available: true
-                },
-                {
-                    id: 2,
-                    title: 'Book2',
-                    author: { penName: 'Author2' },
-                    pages: 200,
-                    available: false
-                },
-                {
-                    id: 3,
-                    title: 'Book3',
-                    author: { penName: 'Author3' },
-                    pages: 300,
-                    available: true
-                },
-            ],
-        }
-    },
-    methods: {
-        async getBooks() {
-            try {
-                const response = await fetch('http://localhost:8080/books')
-                const data = await response.json()
-                this.books = data
-            } catch (error) {
-                console.error(error)
-            }
-        },
-        async borrowBook(book) {
-            book.author.id = 200
-            try {
-                const response = await fetch(`http://localhost:8080/client/${this.clientId}/borrow/${book.id}`)
-                const data = await response.json()
-                if (!response.ok) {
-                    console.log('error: ' + data.error + ', message: ' + data.message)
-                }
-                else {
-                    console.log('Success: '+ data.message)
-                }
-            } catch (error) {
-                console.error(error)
-            }
-        },
-    },
-    mounted() {
-        this.getBooks()
+        BooksUserPage,
+        BooksAdminPage,
     },
 }
 </script>
